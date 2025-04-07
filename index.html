@@ -1,5 +1,282 @@
 <!DOCTYPE html>
 <html lang="th">
-<!-- HTML ทั้งหมดจาก Canvas -->
-<!-- เนื้อหาจะถูกแทนที่ภายหลังจาก assistant ด้วย HTML จริง -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ประกันภัยรถยนต์ - มิตรแท้ประกันภัย</title>
+  <meta property="og:title" content="มิตรแท้ประกันภัย - ประกันภัยรถยนต์ออนไลน์ ราคาดี" />
+  <meta property="og:description" content="เช็คราคาประกันรถยนต์ฟรี กรอกข้อมูลไม่กี่ขั้นตอน รับใบเสนอราคาทันที!" />
+  <meta property="og:image" content="https://example.com/logo.png" />
+  <meta property="og:url" content="https://example.com" />
+  <meta property="og:type" content="website" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background-color: #005bac;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header img {
+      height: 80px;
+      margin-bottom: 0.5rem;
+    }
+    .container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .hero, .form-section, .summary-section {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-bar-fill {
+      height: 10px;
+      background-color: #005bac;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #005bac;
+      color: white;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+    button:hover {
+      background-color: #003e7a;
+    }
+    #price-display {
+      font-size: 1.2rem;
+      color: #d62828;
+      margin-top: 1rem;
+    }
+    .id-image, .line-contact {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .id-image img, .line-contact img {
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .contact-buttons {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .contact-buttons a {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #28a745;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contact-buttons a.phone {
+      background-color: #dc3545;
+    }
+    .summary-section {
+      display: none;
+      text-align: left;
+    }
+    .summary-section p {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/mnt/data/มิตรแท้.png" alt="โลโก้มิตรแท้ประกันภัย" />
+    <h1>มิตรแท้ประกันภัย</h1>
+    <p>ประกันภัยรถยนต์ออนไลน์ สะดวก ปลอดภัย ราคาดี</p>
+  </header>
+
+  <div class="container">
+    <section class="hero">
+      <h2>เช็คราคาประกันภัยรถยนต์ฟรี!</h2>
+      <p>กรอกข้อมูลรถยนต์ของคุณ เพื่อรับใบเสนอราคาประกันจากมิตรแท้</p>
+    </section>
+
+    <section class="form-section">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+      </div>
+      <form id="insurance-form">
+        <label for="car-type">ประเภทรถ</label>
+        <select id="car-type" name="carType">
+          <option>รถเก๋ง</option>
+          <option>รถกระบะ</option>
+          <option>SUV</option>
+        </select>
+
+        <label for="brand">ยี่ห้อรถ</label>
+        <input type="text" id="brand" name="brand" />
+
+        <label for="model">รุ่น</label>
+        <input type="text" id="model" name="model" />
+
+        <label for="year">ปีจดทะเบียน</label>
+        <input type="number" id="year" name="year" min="1990" max="2025" />
+
+        <label for="insurance-type">ประเภทประกันที่สนใจ</label>
+        <select id="insurance-type" name="insuranceType">
+          <option>ชั้น 1</option>
+          <option>ชั้น 2+</option>
+          <option>ชั้น 3+</option>
+          <option>ชั้น 3</option>
+        </select>
+
+        <label for="name">ชื่อ-นามสกุล</label>
+        <input type="text" id="name" name="name" />
+
+        <label for="phone">เบอร์โทร</label>
+        <input type="tel" id="phone" name="phone" />
+
+        <label for="line">ไอดีไลน์ (ถ้ามี)</label>
+        <input type="text" id="line" name="line" />
+
+        <label for="upload">แนบเอกสาร/รูปถ่ายเพิ่มเติม</label>
+        <input type="file" id="upload" name="upload" accept="image/*" />
+
+        <div id="price-display"></div>
+
+        <button type="button" id="review-btn">ถัดไป: ตรวจสอบข้อมูล</button>
+      </form>
+    </section>
+
+    <section class="summary-section" id="summary">
+      <h3>ตรวจสอบข้อมูลก่อนยืนยัน</h3>
+      <div id="summary-content"></div>
+      <button id="confirm-btn">ยืนยันและส่งข้อมูล</button>
+    </section>
+
+    <section class="id-image">
+      <h3>ตัวแทนจำหน่าย</h3>
+      <p>ยืนยันตัวตนโดยบัตรตัวแทน</p>
+      <img src="/mnt/data/บัตรประกัน.png" alt="บัตรตัวแทนประกันภัย" />
+    </section>
+
+    <section class="line-contact">
+      <h3>ติดต่อผ่าน LINE</h3>
+      <p>LINE ID: <strong>bestboy7244</strong></p>
+      <img src="/mnt/data/QR code.jpg" alt="QR Code Line" />
+    </section>
+
+    <div class="contact-buttons">
+      <a class="phone" href="tel:0939180847">📞 โทรหาเรา</a>
+      <a href="https://line.me/ti/p/~bestboy7244">💬 แชทผ่าน LINE</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('insurance-form');
+    const progressBarFill = document.getElementById('progress-bar-fill');
+    const summary = document.getElementById('summary');
+    const summaryContent = document.getElementById('summary-content');
+    const priceDisplay = document.getElementById('price-display');
+
+    function calculatePrice(type, year) {
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - parseInt(year);
+      let base = 0;
+      if (type === "ชั้น 1") base = 12000;
+      else if (type === "ชั้น 2+") base = 7000;
+      else if (type === "ชั้น 3+") base = 5000;
+      else base = 3000;
+      if (age > 10) base += 1000;
+      return base;
+    }
+
+    form.addEventListener('input', () => {
+      const totalFields = 9;
+      let filled = 0;
+      [...form.elements].forEach(el => {
+        if (el.tagName !== "BUTTON" && el.type !== "file" && el.value.trim() !== "") filled++;
+      });
+      const percent = Math.floor((filled / totalFields) * 100);
+      progressBarFill.style.width = percent + "%";
+    });
+
+    document.getElementById('review-btn').addEventListener('click', () => {
+      const data = {
+        carType: form['car-type'].value,
+        brand: form['brand'].value,
+        model: form['model'].value,
+        year: form['year'].value,
+        insuranceType: form['insurance-type'].value,
+        name: form['name'].value,
+        phone: form['phone'].value,
+        line: form['line'].value
+      };
+
+      const price = calculatePrice(data.insuranceType, data.year);
+      let summaryHTML = '';
+      for (let key in data) {
+        summaryHTML += `<p><strong>${key}</strong>: ${data[key]}</p>`;
+      }
+      summaryHTML += `<p><strong>เบี้ยประกันโดยประมาณ:</strong> ${price.toLocaleString()} บาท</p>`;
+      summaryContent.innerHTML = summaryHTML;
+      summary.style.display = 'block';
+      priceDisplay.innerText = '';
+    });
+
+    document.getElementById('confirm-btn').addEventListener('click', () => {
+      const data = {
+        carType: form['car-type'].value,
+        brand: form['brand'].value,
+        model: form['model'].value,
+        year: form['year'].value,
+        insuranceType: form['insurance-type'].value,
+        name: form['name'].value,
+        phone: form['phone'].value,
+        line: form['line'].value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbw7Co_85m1MvwQelWqYhdscPL8sq6K0XMjt8RmWxn7G75qttWBz3sihIgxULoitD4GdSg/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => res.text())
+      .then(response => {
+        alert("ส่งข้อมูลเรียบร้อยแล้ว! เราจะติดต่อกลับโดยเร็วครับ");
+        form.reset();
+        progressBarFill.style.width = "0%";
+        summary.style.display = 'none';
+      })
+      .catch(err => alert("เกิดข้อผิดพลาดในการส่งข้อมูล"));
+    });
+  </script>
+</body>
 </html>
